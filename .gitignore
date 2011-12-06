@@ -1,4 +1,7 @@
 .DS_Store
 *.pyc
 *._*
-.vim/bundle
+.*
+!.git*
+!.vim*
+vim/bundle

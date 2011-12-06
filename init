@@ -1,0 +1,20 @@
+#!/bin/sh
+
+dir=`dirname "$0"`
+dir=`cd $dir; pwd`
+
+common_part=$HOME
+back=
+while [ "${target#$common_part}" = "$dir" ]; do
+    common_part=$(dirname $common_part)
+    back="../${back}"
+done
+dirRel="$back${dir#$common_part/}"
+
+mkdir -p "$dir/vim/bundle"
+ln -s "$dirRel/vim" "$HOME/.vim"
+ln -s "$dirRel/vimrc" "$HOME/.vimrc"
+
+git clone http://github.com/gmarik/vundle.git "$dir/vim/bundle/vundle"
+vim -c 'BundleInstall!' -c 'BundleClean' -c 'q'
+
